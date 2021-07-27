@@ -1,87 +1,67 @@
-# mbp-ubuntu-kernel
+# mbp-16.x-ubuntu-kernel
 
-Ubuntu/Mint/Debian kernel 5.6+ with Apple T2 patches built-in. This repo try to keep up with kernel new releases.
+Ubuntu/Mint/Debian kernel with Apple T2 patches built-in. This repo will try to keep up with kernel new releases. If you want to request for a specific kernel version, you may raise it as an issue or use the discussions tab.
 
-We release 2 alternative kernels: **"mbp"** which includes all patches from [Aunali1's linux mbp arch](https://github.com/aunali1/linux-mbp-arch) which should work in mostly everywhere and an alternative release (**"mbp-alt"**) which do not include the patch 2001 (drm amd display force link-rate).
+This project is closely inspired by mikeeq/mbp-fedora-kernel and marcosfad/mbp-ubuntu-kernel. Thank you @mikeeq and @marcosfad for the scripts and setup.
 
-**!! Warning:** 
+Special thanks to @Redecorating who edited the scripts for Big Sur firmware.
 
-Starting from the kernel 5.8 the release naming were switch with respect to kernel 5.7: Before the "mbp" release did not include all the patches. **Now the "mbp" includes all patches** and the "mbp-alt" don't.
+**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/AdityaGarg8/mbp-16.x-ubuntu-kernel#credits).**
 
-**!! Warning:**
+## Pre installation steps
 
-It seems, that the kernel 5.8 is not working as smooth as the 5.7 branch. If you experience problems while installing or running the linux in your mbp, try using an older Kernel.
-
-**Drivers included:**
-
-- Apple T2 (audio, keyboard, touchpad) - <https://github.com/MCMrARM/mbp2018-bridge-drv>
-- Apple SMC - <https://github.com/MCMrARM/mbp2018-etc>
-- Touchbar - <https://github.com/roadrunner2/macbook12-spi-driver/tree/mbp15>
-
-This project is closely inspired by mikeeq/mbp-fedora-kernel. Thank you @mikeeq for the scripts and setup.
-
-**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/marcosfad/mbp-ubuntu-kernel#credits) or [me](https://paypal.me/marcosfad)**
-
-## CI status
-
-Drone kernel build status:
-[![Build Status](https://cloud.drone.io/api/badges/marcosfad/mbp-ubuntu-kernel/status.svg)](https://cloud.drone.io/marcosfad/mbp-ubuntu-kernel)
-
-Travis kernel publish status - <http://mbp-ubuntu-kernel.herokuapp.com/> :
-[![Build Status](https://travis-ci.com/marcosfad/mbp-ubuntu-kernel.svg?branch=master)](https://travis-ci.com/marcosfad/mbp-ubuntu-kernel)
+In case you have used an iso with kernel version **5.8.x or lower**, then follow the [DKMS Guide](http://wiki.t2linux.org/guides/dkms/) to uninstall old drivers and get new drivers for the kernels. It is required only once and must be done before installing a kernel from here.
 
 ## INSTALLATION
 
 ### The easy way
 
-Use the [mbp-ubuntu](https://github.com/marcosfad/mbp-ubuntu/releases) live cd to install ubuntu on your Mac.
+Download the .deb packages of **linux-headers** and **linux-image** of the kernel you wish to install from the [releases](https://github.com/AdityaGarg8/mbp-16.x-ubuntu-kernel/releases) section.
 
-### Manually
+Install **linux-headers** first and then **linux-image** using `apt` and restart your Mac. In case you do not know how to do so, follow the instructions given below. Else you are good to go.
 
-Add the repo to your apt sources
-```bash
-echo "deb https://mbp-ubuntu-kernel.herokuapp.com/ /" >/etc/apt/sources.list.d/mbp-ubuntu-kernel.list
-curl -L https://mbp-ubuntu-kernel.herokuapp.com/KEY.gpg | apt-key add -
-apt-get update
-```
-Install the kernel using apt, for example kernel 5.7.9:
-```bash
-apt-get install linux-headers-5.7.9-mbp linux-image-5.7.9-mbp
-```
+On terminal, type `sudo apt install ` and then drag and drop the **linux-headers** file to the terminal and press enter/return key.
+
+Do the similar process for **linux-images** package.
+
+Restart your Mac.
 
 ### Building yourself
 
 Clone the repo using
 ```bash
-git clone https://github.com/Redecorating/mbp-ubuntu-kernel
+git clone https://github.com/AdityaGarg8/mbp-16.x-ubuntu-kernel
 ```
 Open [jamlam's repo] in your browser.
 
 Check out the kernel version it is offering right now.
 
-Now edit build.sh file in mbp-ubuntu-kernel folder of your home directory. Replace the kernel version given in `KERNEL_VERSION` by the one on jamlam's repo.
+Now edit **build.sh** file in **mbp-16.x-ubuntu-kernel** folder of your home directory. Replace the kernel version given in `KERNEL_VERSION` by the one on jamlam's repo.
 
-Now edit patch_driver.sh file in the same folder. Replace the commit hash in `APPLE_SMC_DRIVER_COMMIT_HASH` with the latest one in jamlam's repo. It can be found by click on the shortened hash or time elapsed since last update on the right of `jamlam`.
+Now edit **patch_driver.sh** file in the same folder. Replace the commit hash in `APPLE_SMC_DRIVER_COMMIT_HASH` with the latest one in jamlam's repo. It can be found by click on the shortened hash or time elapsed since last update on the right of "jamlam".
 
 Now open a terminal window and run
 
 ```bash
-cd mbp-ubuntu-kernel
+cd mbp-16.x-ubuntu-kernel
 sudo ./build.sh
 ```
 
 The kernel shall take around an hour to compile. After that you shall find three .deb packages in `/root/work`.
 
-Install the `linux-headers` package using apt on terminal. Similarly install the `linux-image` package too.
+Install the **linux-headers** package first using `apt`. In case you do not know how to do so, follow the instructions described in the above **The easy way** section. Similarly install the **linux-image** package too.
 
 Restart your Mac.
 
-You may then delete the `/root/work` directory to free up space.
+You may then delete the `/root/work` directory using `sudo rm -r /root/work` to free up space.
 
 ## Docs
 
 - Discord: <https://discord.gg/Uw56rqW>
-- WiFi firmware: <https://packages.aunali1.com/apple/wifi-fw/18G2022>
+- WiFi firmware:
+  - <https://wiki.t2linux.org/guides/wifi/>
+  - <https://github.com/Redecorating/archinstall-mbp/tree/packages/apple-t2-wifi-firmware/bigSurFW>
+  - <https://github.com/AdityaGarg8/mbp-16.1-wifi-firmware> (Only for MacBook Pro 16,1)
 - blog `Installing Fedora 31 on a 2018 Mac mini`: <https://linuxwit.ch/blog/2020/01/installing-fedora-on-mac-mini/>
 - iwd:
   - <https://iwd.wiki.kernel.org/networkconfigurationsettings>
@@ -98,23 +78,15 @@ You may then delete the `/root/work` directory to free up space.
 - <https://www.linux.com/training-tutorials/kernel-newbie-corner-building-and-running-new-kernel/>
 - <https://wiki.ubuntu.com/KernelTeam/KernelMaintenance>
 
-### Github
-
-- GitHub issue (RE history): <https://github.com/Dunedan/mbp-2016-linux/issues/71>
-- VHCI+Sound driver (Apple T2): <https://github.com/MCMrARM/mbp2018-bridge-drv/>
-- AppleSMC driver (fan control): <https://github.com/MCMrARM/mbp2018-etc/tree/master/applesmc>
-- hid-apple keyboard backlight patch: <https://github.com/MCMrARM/mbp2018-etc/tree/master/apple-hid>
-- TouchBar driver: <https://github.com/roadrunner2/macbook12-spi-driver/tree/mbp15>
-- Kernel patches (all are mentioned in github issue above): <https://github.com/aunali1/linux-mbp-arch>
-- ArchLinux kernel patches: <https://github.com/ppaulweber/linux-mba>
-- hid-apple-patched module for changing mappings of ctrl, fn, option keys: <https://github.com/free5lot/hid-apple-patched>
-
 ## Credits
 
+- @Redecorating - thanks for editing the scripts
+- @marcosfad - thanks for the original script for Ubuntu
 - @MCMrARM - thanks for all RE work
 - @ozbenh - thanks for submitting NVME patch
 - @roadrunner2 - thanks for SPI (touchbar) driver
-- @aunali1 - thanks for ArchLinux Kernel CI and active support.
+- @aunali1 - thanks for ArchLinux Kernel CI and active support
+- @jamlam - thanks for providing the Correlium wifi patch
 - @ppaulweber - thanks for keyboard and Macbook Air patches
 - @mikeeq - thanks for the fedora kernel project and compilation scripts
 
