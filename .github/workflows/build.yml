@@ -59,6 +59,8 @@ jobs:
             /tmp/artifacts/sha256
             /tmp/artifacts/*.deb
           tag_name: v${{ steps.build.outputs.tag }}
+          body: Has Bluetooth support for Ubuntu 20.04 and 20.10.
           draft: false
+          prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
