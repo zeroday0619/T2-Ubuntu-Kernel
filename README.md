@@ -80,7 +80,7 @@ You may then delete the `/root/work` directory using `sudo rm -r /root/work` to 
 
 ## Credits
 
-- @Redecorating - thanks for editing the scripts and Ubuntu CI
+- @Redecorating - thanks for editing the scripts and CI for Ubuntu
 - @marcosfad - thanks for the original script for Ubuntu
 - @MCMrARM - thanks for all RE work
 - @ozbenh - thanks for submitting NVME patch
