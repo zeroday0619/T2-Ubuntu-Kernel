@@ -1,4 +1,4 @@
-# mbp-16.x-ubuntu-kernel
+# T2 Big Sur Ubuntu Kernel
 
 Ubuntu/Mint/Debian kernel with Apple T2 patches built-in. This repo will try to keep up with kernel new releases. If you want to request for a specific kernel version, you may raise it as an issue or use the discussions tab.
 
@@ -6,7 +6,7 @@ This project is closely inspired by mikeeq/mbp-fedora-kernel and marcosfad/mbp-u
 
 Special thanks to @Redecorating who edited the scripts for Big Sur firmware and also provided the CI.
 
-**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/AdityaGarg8/mbp-16.x-ubuntu-kernel#credits).**
+**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel#credits).**
 
 ## Pre installation steps
 
@@ -16,7 +16,7 @@ In case you have used an iso with kernel version **5.8.x or lower**, then follow
 
 ### The easy way
 
-Download the .deb packages of **linux-headers** and **linux-image** of the kernel you wish to install from the [releases](https://github.com/AdityaGarg8/mbp-16.x-ubuntu-kernel/releases) section.
+Download the .deb packages of **linux-headers** and **linux-image** of the kernel you wish to install from the [releases](https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel/releases) section.
 
 Install **linux-headers** first and then **linux-image** using `apt` and restart your Mac. In case you do not know how to do so, follow the instructions given below. Else you are good to go.
 
@@ -30,20 +30,20 @@ Restart your Mac.
 
 Clone the repo using
 ```bash
-git clone https://github.com/AdityaGarg8/mbp-16.x-ubuntu-kernel
+git clone https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel
 ```
 Open [jamlam's repo] in your browser.
 
 Check out the kernel version it is offering right now.
 
-Now edit **build.sh** file in **mbp-16.x-ubuntu-kernel** folder of your home directory. Replace the kernel version given in `KERNEL_VERSION` by the one on jamlam's repo.
+Now edit **build.sh** file in **T2-Big-Sur-Ubuntu-Kernel** folder of your home directory. Replace the kernel version given in `KERNEL_VERSION` by the one on jamlam's repo.
 
 Now edit **patch_driver.sh** file in the same folder. Replace the commit hash in `APPLE_SMC_DRIVER_COMMIT_HASH` with the latest one in jamlam's repo. It can be found by click on the shortened hash or time elapsed since last update on the right of "jamlam".
 
 Now open a terminal window and run
 
 ```bash
-cd mbp-16.x-ubuntu-kernel
+cd T2-Big-Sur-Ubuntu-Kernel
 sudo ./build.sh
 ```
 
