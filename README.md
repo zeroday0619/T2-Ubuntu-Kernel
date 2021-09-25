@@ -60,7 +60,7 @@ You may then delete the `/root/work` directory using `sudo rm -r /root/work` to 
 - Discord: <https://discord.gg/Uw56rqW>
 - WiFi firmware:
   - <https://wiki.t2linux.org/guides/wifi/>
-  - <https://github.com/Redecorating/archinstall-mbp/tree/packages/apple-t2-wifi-firmware/bigSurFW>
+  - <https://github.com/AdityaGarg8/macOS-Big-Sur-WiFi-Firmware>
   - <https://github.com/AdityaGarg8/mbp-16.1-wifi-firmware> (Only for MacBook Pro 16,1)
 - blog `Installing Fedora 31 on a 2018 Mac mini`: <https://linuxwit.ch/blog/2020/01/installing-fedora-on-mac-mini/>
 - iwd:
