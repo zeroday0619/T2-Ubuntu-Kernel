@@ -3,7 +3,7 @@
 set -eu -o pipefail
 
 KERNEL_VERSION=5.14.9
-PKGREL=2
+PKGREL=3
 #KERNEL_REPOSITORY=git://kernel.ubuntu.com/virgin/linux-stable.git
 KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 REPO_PATH=$(pwd)
