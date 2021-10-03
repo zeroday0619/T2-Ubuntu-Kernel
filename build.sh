@@ -7,7 +7,6 @@ set -eu -o pipefail
 KERNEL_VERSION=hwe-5.13
 UBUNTU_REL=14.14
 PKGREL=1
-#KERNEL_REPOSITORY=git://kernel.ubuntu.com/virgin/linux-stable.git
 KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/focal
 REPO_PATH=$(pwd)
 WORKING_PATH=/home/work
