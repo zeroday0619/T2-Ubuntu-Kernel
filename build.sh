@@ -6,7 +6,7 @@ set -eu -o pipefail
 # KERNEL_VERSION=$(curl -s https://www.kernel.org | grep '<strong>' | head -3 | tail -1 | cut -d'>' -f3 | cut -d'<' -f1)
 KERNEL_VERSION=hwe-5.13
 UBUNTU_REL=14.14
-PKGREL=1
+PKGREL=2
 KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/focal
 REPO_PATH=$(pwd)
 WORKING_PATH=/home/work
