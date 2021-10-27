@@ -9578,6 +9578,13 @@ CONFIG_FTM_QUADDEC=m
 # end of Device Drivers
 
 #
+# Ubuntu Supplied Third-Party Device Drivers
+#
+CONFIG_UBUNTU_ODM_DRIVERS=y
+CONFIG_HIO=m
+# end of Ubuntu Supplied Third-Party Device Drivers
+
+#
 # File systems
 #
 CONFIG_DCACHE_WORD_ACCESS=y
