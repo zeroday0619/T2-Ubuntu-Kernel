@@ -2,12 +2,12 @@
 
 set -eu -o pipefail
 
-KERNEL_BRANCH=hwe-5.13
-UBUNTU_REL=14.14
-PKGREL=2
-KERNEL_VERSION="5.13-${UBUNTU_REL}-hwe"
-KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/focal
-KERNEL_COMMIT_HASH=8fa29863b7f5c31c2efb98788d4d26a16a4e2f68
+KERNEL_BRANCH=master
+UBUNTU_REL=19.19
+PKGREL=1
+KERNEL_VERSION="5.13.0-${UBUNTU_REL}-generic"
+KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/impish
+KERNEL_COMMIT_HASH=86d5f4d4ce66d96657de67b735dacb25b8ab8a1b
 REPO_PATH=$(pwd)
 WORKING_PATH=/home/work
 KERNEL_PATH="${WORKING_PATH}/linux-kernel"
@@ -21,10 +21,6 @@ grep 'model name' /proc/cpuinfo | uniq
 
 get_next_version () {
   echo $PKGREL
-}
-
-get_local_version () {
-  echo $UBUNTU_REL
 }
 
 ### Clean up
@@ -73,15 +69,17 @@ chmod a+x "${KERNEL_PATH}"/debian/scripts/misc/*
 echo >&2 "===]> Info: Bulding src... "
 
 cd "${KERNEL_PATH}"
-make clean
-cp "${WORKING_PATH}/templates/default-config" "${KERNEL_PATH}/.config"
-make olddefconfig
+LANG=C fakeroot debian/rules clean
+#make clean
+#cp "${WORKING_PATH}/templates/default-config" "${KERNEL_PATH}/.config"
+#make olddefconfig
 
 # Get rid of the dirty tag
 echo "" >"${KERNEL_PATH}"/.scmversion
 
 # Build Deb packages
-make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION="-$(get_local_version)-hwe-t2-big-sur" KDEB_PKGVERSION="$(make kernelversion)-$(get_local_version)-hwe-$(get_next_version)"
+LANG=C fakeroot debian/rules binary-headers binary-generic binary-perarch
+#make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION="-$(get_local_version)-hwe-t2-big-sur" KDEB_PKGVERSION="$(make kernelversion)-$(get_local_version)-hwe-$(get_next_version)"
 
 #### Copy artifacts to shared volume
 echo >&2 "===]> Info: Copying debs and calculating SHA256 ... "
