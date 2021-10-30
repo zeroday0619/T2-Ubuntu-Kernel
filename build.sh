@@ -3,11 +3,11 @@
 set -eu -o pipefail
 
 KERNEL_BRANCH=master
-UBUNTU_REL=19.19
+UBUNTU_REL=37.41
 PKGREL=1
-KERNEL_VERSION="5.13.0-${UBUNTU_REL}-generic"
-KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/impish
-KERNEL_COMMIT_HASH=86d5f4d4ce66d96657de67b735dacb25b8ab8a1b
+KERNEL_VERSION="5.11.0-${UBUNTU_REL}-generic"
+KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/hirsute
+KERNEL_COMMIT_HASH=ea87d1a50b40be331982d8d5afe12279e2cb495e
 REPO_PATH=$(pwd)
 WORKING_PATH=/home/work
 KERNEL_PATH="${WORKING_PATH}/linux-kernel"
