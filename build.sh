@@ -69,15 +69,13 @@ chmod a+x "${KERNEL_PATH}"/debian/scripts/misc/*
 echo >&2 "===]> Info: Bulding src... "
 
 cd "${KERNEL_PATH}"
-LANG=C fakeroot debian/rules clean
-#make clean
-#cp "${WORKING_PATH}/templates/default-config" "${KERNEL_PATH}/.config"
-#make olddefconfig
 
-# Get rid of the dirty tag
-echo "" >"${KERNEL_PATH}"/.scmversion
+# Fix for compile error
+sed -i 's/CONFIG_DEBUG_INFO_BTF=y/# CONFIG_DEBUG_INFO_BTF is not set/g' debian.master/config/amd64/config.common.amd64
+cp "${WORKING_PATH}/templates/annotations" "${KERNEL_PATH}/debian.master/config/annotations"
 
 # Build Deb packages
+LANG=C fakeroot debian/rules clean
 LANG=C fakeroot debian/rules binary-headers binary-generic binary-perarch
 #make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION="-$(get_local_version)-hwe-t2-big-sur" KDEB_PKGVERSION="$(make kernelversion)-$(get_local_version)-hwe-$(get_next_version)"
 
