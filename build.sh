@@ -35,7 +35,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
   openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git \
-  bc rsync cpio dh-modaliases debhelper kernel-wedge curl
+  bc rsync cpio dh-modaliases debhelper kernel-wedge curl gawk dwarves
 
 ### get Kernel
 git clone --depth 1 --single-branch --branch "${KERNEL_BRANCH}" \
@@ -71,8 +71,8 @@ echo >&2 "===]> Info: Bulding src... "
 cd "${KERNEL_PATH}"
 
 # Fix for compile error
-sed -i 's/CONFIG_DEBUG_INFO_BTF=y/# CONFIG_DEBUG_INFO_BTF is not set/g' debian.master/config/amd64/config.common.amd64
-cp "${WORKING_PATH}/templates/annotations" "${KERNEL_PATH}/debian.master/config/annotations"
+#sed -i 's/CONFIG_DEBUG_INFO_BTF=y/# CONFIG_DEBUG_INFO_BTF is not set/g' debian.master/config/amd64/config.common.amd64
+#cp "${WORKING_PATH}/templates/annotations" "${KERNEL_PATH}/debian.master/config/annotations"
 
 # Build Deb packages
 LANG=C fakeroot debian/rules clean
