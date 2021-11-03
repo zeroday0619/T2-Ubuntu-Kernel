@@ -3,7 +3,7 @@
 set -eu -o pipefail
 
 KERNEL_BRANCH=master
-UBUNTU_REL=37.41
+UBUNTU_REL=37
 PKGREL=1
 KERNEL_VERSION="5.11.0-${UBUNTU_REL}-generic"
 KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/hirsute
@@ -83,6 +83,6 @@ LANG=C fakeroot debian/rules binary-headers binary-generic binary-perarch
 echo >&2 "===]> Info: Copying debs and calculating SHA256 ... "
 #cp -rfv ../*.deb "${REPO_PATH}/"
 #cp -rfv "${KERNEL_PATH}/.config" "${REPO_PATH}/kernel_config_${KERNEL_VERSION}"
-cp -rfv "${KERNEL_PATH}/.config" "/tmp/artifacts/kernel_config_${KERNEL_VERSION}"
+cp -rfv "${KERNEL_PATH}/debian/build/build-generic/.config" "/tmp/artifacts/kernel_config_${KERNEL_VERSION}"
 cp -rfv ../*.deb /tmp/artifacts/
 sha256sum ../*.deb >/tmp/artifacts/sha256
