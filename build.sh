@@ -3,9 +3,10 @@
 set -eu -o pipefail
 
 KERNEL_BRANCH=master
-UBUNTU_REL=37
+KERNEL_REL=5.11.0
+UBUNTU_REL=37.41
 PKGREL=1
-KERNEL_VERSION="5.11.0-${UBUNTU_REL}-generic"
+KERNEL_VERSION="${KERNEL_REL}-${UBUNTU_REL}-generic"
 KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/hirsute
 KERNEL_COMMIT_HASH=ea87d1a50b40be331982d8d5afe12279e2cb495e
 REPO_PATH=$(pwd)
@@ -70,11 +71,8 @@ echo >&2 "===]> Info: Bulding src... "
 
 cd "${KERNEL_PATH}"
 
-# Fix for compile error
-#sed -i 's/CONFIG_DEBUG_INFO_BTF=y/# CONFIG_DEBUG_INFO_BTF is not set/g' debian.master/config/amd64/config.common.amd64
-#cp "${WORKING_PATH}/templates/annotations" "${KERNEL_PATH}/debian.master/config/annotations"
-
 # Build Deb packages
+sed -i "s/${KERNEL_REL}-${UBUNTU_REL}/${KERNEL_REL}-${UBUNTU_REL}-t2-big-sur/g" debian.master/changelog
 LANG=C fakeroot debian/rules clean
 LANG=C fakeroot debian/rules binary-headers binary-generic binary-perarch
 #make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION="-$(get_local_version)-hwe-t2-big-sur" KDEB_PKGVERSION="$(make kernelversion)-$(get_local_version)-hwe-$(get_next_version)"
