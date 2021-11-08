@@ -72,7 +72,7 @@ echo >&2 "===]> Info: Bulding src... "
 cd "${KERNEL_PATH}"
 
 # Build Deb packages
-sed -i "s/${KERNEL_REL}-${UBUNTU_REL}/${KERNEL_REL}-${UBUNTU_REL}+test1/g" debian.master/changelog
+sed -i "s/${KERNEL_REL}-${UBUNTU_REL}/${KERNEL_REL}-${UBUNTU_REL}+t2-big-sur/g" debian.master/changelog
 LANG=C fakeroot debian/rules clean
 LANG=C fakeroot debian/rules binary-headers binary-generic binary-perarch
 #make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION="-$(get_local_version)-hwe-t2-big-sur" KDEB_PKGVERSION="$(make kernelversion)-$(get_local_version)-hwe-$(get_next_version)"
