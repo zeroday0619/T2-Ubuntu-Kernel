@@ -2,7 +2,7 @@
 
 Ubuntu/Mint/Debian kernel with Apple T2 patches built-in. This repo will try to keep up with kernel new releases.
 
-![Build Kernel Package](https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel/actions/workflows/build.yml/badge.svg?branch=HWE)
+![Build Kernel Package](https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel/actions/workflows/build.yml/badge.svg?branch=Ubuntu)
 
 This project is closely inspired by mikeeq/mbp-fedora-kernel and marcosfad/mbp-ubuntu-kernel. Thank you @mikeeq and @marcosfad for the scripts and setup.
 
