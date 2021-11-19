@@ -10,7 +10,7 @@ REPO_PATH=$(pwd)
 WORKING_PATH=/root/work
 KERNEL_PATH="${WORKING_PATH}/linux-kernel"
 
-### Debug commands
+## Debug commands
 echo "KERNEL_VERSION=$KERNEL_VERSION"
 echo "${WORKING_PATH}"
 echo "Current path: ${REPO_PATH}"
