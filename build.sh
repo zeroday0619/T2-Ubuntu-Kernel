@@ -21,7 +21,7 @@ get_next_version () {
   echo $PKGREL
 }
 
-### Clean up
+## Clean up
 rm -rfv ./*.deb
 
 mkdir "${WORKING_PATH}" && cd "${WORKING_PATH}"
