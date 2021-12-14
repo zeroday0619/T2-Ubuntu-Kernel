@@ -1,0 +1,26 @@
+From 1f0ccb28038fe2f9c312482870a04a262174f2ee Mon Sep 17 00:00:00 2001
+From: Aditya Garg <gargaditya08@live.com>
+Date: Tue, 14 Dec 2021 17:33:15 +0530
+Subject: [PATCH] fix2:
+
+---
+ drivers/hid/hid-apple.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
+index f38c60748..492673ef2 100644
+--- a/drivers/hid/hid-apple.c
++++ b/drivers/hid/hid-apple.c
+@@ -391,6 +391,9 @@ static void apple_setup_input(struct input_dev *input)
+ 	/* Enable all needed keys */
+ 	for (trans = apple_fn_keys; trans->from; trans++)
+ 		set_bit(trans->to, input->keybit);
++		
++	for (trans = apple_swap_number_fn_keys; trans->from; trans++)
++		set_bit(trans->to, input->keybit);
+ 
+ 	for (trans = powerbook_fn_keys; trans->from; trans++)
+ 		set_bit(trans->to, input->keybit);
+-- 
+2.25.1
+
