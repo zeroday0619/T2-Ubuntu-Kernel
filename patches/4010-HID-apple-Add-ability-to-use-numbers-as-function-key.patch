@@ -18,19 +18,19 @@ diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
 index c6e3fb257..c532aaa77 100644
 --- a/drivers/hid/hid-apple.c
 +++ b/drivers/hid/hid-apple.c
-@@ -40,6 +40,12 @@ module_param(fnmode, uint, 0644);
+@@ -41,6 +41,12 @@ static unsigned int fnmode = 1;
+ module_param(fnmode, uint, 0644);
  MODULE_PARM_DESC(fnmode, "Mode of fn key on Apple keyboards (0 = disabled, "
  		"[1] = fkeyslast, 2 = fkeysfirst)");
- 
++
 +static unsigned int numbers_as_fkeys;
 +module_param(numbers_as_fkeys, uint, 0644);
 +MODULE_PARM_DESC(numbers_as_fkeys, "Use numbers as function keys on T2 Macs. "
 +		"(For people whose touchbar isn't working. "
 +		"[0] = disabled, 1 = enabled)");
-+
+
  static int iso_layout = -1;
  module_param(iso_layout, int, 0644);
- MODULE_PARM_DESC(iso_layout, "Swap the backtick/tilde and greater-than/less-than keys. "
 @@ -113,6 +119,29 @@ static const struct apple_key_translation apple_fn_keys[] = {
  	{ }
  };
