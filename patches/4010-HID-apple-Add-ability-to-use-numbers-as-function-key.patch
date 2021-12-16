@@ -100,10 +100,10 @@ index 2c9c5faa7..a1c2f1ee3 100644
  	set_bit(KEY_NUMLOCK, input->keybit);
  
  	/* Enable all needed keys */
-+	for (trans = macbookpro_no_esc_fn_keys trans->from; trans++)
++	for (trans = macbookpro_no_esc_fn_keys; trans->from; trans++)
 +		set_bit(trans->to, input->keybit);
 +
-+	for (trans = macbookpro_dedicated_esc_fn_keys trans->from; trans++)
++	for (trans = macbookpro_dedicated_esc_fn_keys; trans->from; trans++)
 +		set_bit(trans->to, input->keybit);
 +
  	for (trans = apple_fn_keys; trans->from; trans++)
