@@ -1,14 +1,14 @@
-# T2 Big Sur Ubuntu Kernel
+# T2 Ubuntu Kernel
 
 Ubuntu/Mint/Debian kernel with Apple T2 patches built-in. This repo will try to keep up with kernel new releases.
 
-![Build Kernel Package](https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel/actions/workflows/build.yml/badge.svg?branch=master)
+![Build Kernel Package](https://github.com/AdityaGarg8/T2-Ubuntu-Kernel/actions/workflows/build.yml/badge.svg?branch=master)
 
 This project is closely inspired by mikeeq/mbp-fedora-kernel and marcosfad/mbp-ubuntu-kernel. Thank you @mikeeq and @marcosfad for the scripts and setup.
 
-Special thanks to @Redecorating who edited the scripts for Big Sur firmware and also provided the CI.
+Special thanks to @Redecorating for the CI.
 
-**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel#credits).**
+**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/AdityaGarg8/T2-Ubuntu-Kernel#credits).**
 
 ## Pre installation steps
 
@@ -18,7 +18,7 @@ In case you have used an iso with kernel version **5.8.x or lower**, then follow
 
 ### The easy way
 
-Download the .deb packages of **linux-headers** and **linux-image** of the kernel you wish to install from the [releases](https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel/releases) section.
+Download the .deb packages of **linux-headers** and **linux-image** of the kernel you wish to install from the [releases](https://github.com/AdityaGarg8/T2-Ubuntu-Kernel/releases) section.
 
 Install **linux-headers** first and then **linux-image** using `apt` and restart your Mac. In case you do not know how to do so, follow the instructions given below. Else you are good to go.
 
@@ -32,20 +32,20 @@ Restart your Mac.
 
 Clone the repo using
 ```bash
-git clone https://github.com/AdityaGarg8/T2-Big-Sur-Ubuntu-Kernel
+git clone https://github.com/AdityaGarg8/T2-Ubuntu-Kernel
 ```
 Open [jamlam's repo] in your browser.
 
 Check out the kernel version it is offering right now.
 
-Now edit **build.sh** file in **T2-Big-Sur-Ubuntu-Kernel** folder of your home directory. Replace the kernel version given in `KERNEL_VERSION` by the one on jamlam's repo.
+Now edit **build.sh** file in **T2-Ubuntu-Kernel** folder of your home directory. Replace the kernel version given in `KERNEL_VERSION` by the one on jamlam's repo.
 
 Now edit **patch_driver.sh** file in the same folder. Replace the commit hash in `APPLE_SMC_DRIVER_COMMIT_HASH` with the latest one in jamlam's repo. It can be found by click on the shortened hash or time elapsed since last update on the right of "jamlam".
 
 Now open a terminal window and run
 
 ```bash
-cd T2-Big-Sur-Ubuntu-Kernel
+cd T2-Ubuntu-Kernel
 sudo ./build.sh
 ```
 
@@ -62,8 +62,6 @@ You may then delete the `/root/work` directory using `sudo rm -r /root/work` to 
 - Discord: <https://discord.gg/Uw56rqW>
 - WiFi firmware:
   - <https://wiki.t2linux.org/guides/wifi/>
-  - <https://github.com/AdityaGarg8/macOS-Big-Sur-WiFi-Firmware>
-  - <https://github.com/AdityaGarg8/mbp-16.1-wifi-firmware> (Only for MacBook Pro 16,1)
 - blog `Installing Fedora 31 on a 2018 Mac mini`: <https://linuxwit.ch/blog/2020/01/installing-fedora-on-mac-mini/>
 - iwd:
   - <https://iwd.wiki.kernel.org/networkconfigurationsettings>
