@@ -2,13 +2,13 @@
 
 set -eu -o pipefail
 
-KERNEL_BRANCH=master
-KERNEL_REL=5.11.0
-UBUNTU_REL=37.41
+KERNEL_BRANCH=master-next
+KERNEL_REL=5.15.0
+UBUNTU_REL=17.17
 PKGREL=1
 KERNEL_VERSION="${KERNEL_REL}-${UBUNTU_REL}-generic"
-KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/hirsute
-KERNEL_COMMIT_HASH=ea87d1a50b40be331982d8d5afe12279e2cb495e
+KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/jammy
+KERNEL_COMMIT_HASH=28fcfe183c6d95969be84bdcc603c3da08f99626
 REPO_PATH=$(pwd)
 WORKING_PATH=/home/work
 KERNEL_PATH="${WORKING_PATH}/linux-kernel"

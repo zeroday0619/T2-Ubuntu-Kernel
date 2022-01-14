@@ -6,9 +6,9 @@ BUILD_PATH=/tmp/build-kernel
 
 ### Apple T2 drivers commit hashes
 # Patches
-APPLE_SMC_DRIVER_GIT_URL=https://github.com/AdityaGarg8/5.10-patches.git
+APPLE_SMC_DRIVER_GIT_URL=https://github.com/jamlam/mbp-16.1-linux-wifi.git
 APPLE_SMC_DRIVER_BRANCH_NAME=main
-APPLE_SMC_DRIVER_COMMIT_HASH=65e5717008ee3f5c6df25152c0042cac18a98a4a
+APPLE_SMC_DRIVER_COMMIT_HASH=edeb47a4363d3647ea543738b27f3962ff245197
 ## BCE
 #APPLE_BCE_DRIVER_GIT_URL=https://github.com/aunali1/mbp2018-bridge-drv.git
 #APPLE_BCE_DRIVER_BRANCH_NAME=aur
@@ -31,7 +31,7 @@ git checkout ${APPLE_SMC_DRIVER_COMMIT_HASH}
 while IFS= read -r file; do
   echo "==> Adding ${file}"
   cp -rfv "${file}" "${WORKING_PATH}"/patches/"${file##*/}"
-done < <(find "${BUILD_PATH}/linux-mbp-arch" -type f -name "*.patch" | grep -vE '000[0-9]' | sort)
+done < <(find "${BUILD_PATH}/linux-mbp-arch" -type f -name "*.patch" | grep -vE '000[0-9]')
 
 #### Add custom drivers to kernel
 #echo -e "From: \"Kernel Builder (sita)\" <ubuntu-kernel-bot@canonical.com>\nSubject: patch custom drivers\n" >"${WORKING_PATH}/patches/custom-drivers.patch"
