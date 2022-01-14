@@ -67,6 +67,14 @@ echo >&2 "===]> Info: Bulding src... "
 
 cd "${KERNEL_PATH}"
 make clean
+
+# Make config friendly with vanilla kernel
+sed -i 's/CONFIG_VERSION_SIGNATURE=.*/CONFIG_VERSION_SIGNATURE=""/g' "${WORKING_PATH}/templates/default-config"
+sed -i 's/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=""/g' "${WORKING_PATH}/templates/default-config"
+sed -i 's/CONFIG_SYSTEM_REVOCATION_KEYS=.*/CONFIG_SYSTEM_REVOCATION_KEYS=""/g' "${WORKING_PATH}/templates/default-config"
+sed -i 's/CONFIG_DEBUG_INFO=y/# CONFIG_DEBUG_INFO is not set/g' "${WORKING_PATH}/templates/default-config"
+
+# Copy the modified config
 cp "${WORKING_PATH}/templates/default-config" "${KERNEL_PATH}/.config"
 make olddefconfig
 
