@@ -2,7 +2,7 @@
 
 set -eu -o pipefail
 
-KERNEL_VERSION=5.15.14
+KERNEL_VERSION=5.16
 PKGREL=2
 #KERNEL_REPOSITORY=git://kernel.ubuntu.com/virgin/linux-stable.git
 KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
@@ -10,7 +10,7 @@ REPO_PATH=$(pwd)
 WORKING_PATH=/root/work
 KERNEL_PATH="${WORKING_PATH}/linux-kernel"
 
-## Debug commands
+### Debug commands
 echo "KERNEL_VERSION=$KERNEL_VERSION"
 echo "${WORKING_PATH}"
 echo "Current path: ${REPO_PATH}"
@@ -21,7 +21,7 @@ get_next_version () {
   echo $PKGREL
 }
 
-## Clean up
+### Clean up
 rm -rfv ./*.deb
 
 mkdir "${WORKING_PATH}" && cd "${WORKING_PATH}"
