@@ -33,13 +33,12 @@ jobs:
         id: build
         run: |
           mkdir /tmp/artifacts
+          KREL=$(grep ^KERNEL_REL build.sh | head -n1 | cut -d = -f2)
           UREL=$(grep ^UBUNTU_REL build.sh | head -n1 | cut -d = -f2)
           PREL=$(grep "PKGREL=\d*" build.sh | cut -d = -f2)
           sudo ./build.sh
-          cd /home/work/linux-kernel
-          VERSION=$(make kernelversion)
-          echo Built $VERSION-$UREL-hwe-$PREL
-          echo "::set-output name=tag::${VERSION}-${UREL}-hwe-${PREL}"
+          echo Built $KREL-$UREL-generic-$PREL
+          echo "::set-output name=tag::${KREL}-${UREL}-generic-${PREL}"
           cd /tmp/artifacts
           ls -l
           dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
@@ -48,11 +47,11 @@ jobs:
       - name: Upload package artifact
         uses: actions/upload-artifact@v2
         with:
-          name: linux-T2-Big-Sur-${{ steps.build.outputs.tag }}
+          name: linux-T2-${{ steps.build.outputs.tag }}
           path: /tmp/artifacts/*
 
       - name: Release
-        if: github.ref == 'refs/heads/HWE'
+        if: github.ref == 'refs/heads/Ubuntu'
         uses: softprops/action-gh-release@v1
         with:
           files: |
@@ -61,6 +60,6 @@ jobs:
             /tmp/artifacts/*.deb
           tag_name: v${{ steps.build.outputs.tag }}
           body: linux-headers must be installed before linux-image.
-          draft: false
+          draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
