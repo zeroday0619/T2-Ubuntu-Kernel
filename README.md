@@ -12,7 +12,18 @@ Special thanks to @Redecorating for the CI.
 
 ## Pre installation steps
 
-In case you have used an iso with kernel version **5.8.x or lower**, then follow the [DKMS Guide](http://wiki.t2linux.org/guides/dkms/) to uninstall old drivers and get new drivers for the kernels. It is required only once and must be done before installing a kernel from here.
+Releases starting from 5.16.2 and 5.15.16 (LTS) or have apple-bce and apple-ibridge drivers built-into the kernel. Thus, you may remove the dkms versions of them by running :-
+
+```
+sudo rm -r /usr/src/apple-bce*
+sudo rm -r /usr/src/apple-ibridge*
+sudo rm -r /var/lib/dkms/apple-bce
+sudo rm -r /var/lib/dkms/apple-ibridge
+```
+
+In case you have used an iso with kernel version **5.8.x or lower**, then the above steps are compulsory.
+
+If you want to install an older kernel (i.e. older than 5.16.2 or 5.15.16 (LTS)), then follow the [DKMS Guide](http://wiki.t2linux.org/guides/dkms/) to uninstall old drivers and get new drivers for the kernels. It is required only once and must be done before installing a kernel from here.
 
 ## INSTALLATION
 
