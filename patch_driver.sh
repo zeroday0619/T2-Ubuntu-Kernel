@@ -27,6 +27,8 @@ git clone --single-branch --branch ${APPLE_SMC_DRIVER_BRANCH_NAME} ${APPLE_SMC_D
   "${BUILD_PATH}/linux-mbp-arch"
 cd "${BUILD_PATH}/linux-mbp-arch" || exit
 git checkout ${APPLE_SMC_DRIVER_COMMIT_HASH}
+rm 90*
+rm intel-lpss.patch
 
 while IFS= read -r file; do
   echo "==> Adding ${file}"
