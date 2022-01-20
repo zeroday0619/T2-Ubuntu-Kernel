@@ -4,6 +4,7 @@ set -eu -o pipefail
 
 KERNEL_REL=5.15.0
 UBUNTU_REL=17.17
+KERNEL_COMMIT_HASH=c5b3ae97ae9d18dff1432ae17bb32efcd4900209
 #KERNEL_BRANCH="Ubuntu-${KERNEL_REL}-${UBUNTU_REL}"
 KERNEL_BRANCH=master-next
 PKGREL=1
@@ -41,7 +42,8 @@ apt-get install -y build-essential fakeroot libncurses-dev bison flex libssl-dev
 ### get Kernel
 git clone --depth 1 --single-branch --branch "${KERNEL_BRANCH}" \
   "${KERNEL_REPOSITORY}" "${KERNEL_PATH}"
-cd "${KERNEL_PATH}" || exit
+cd "${KERNEL_PATH}" 
+git checkout "${KERNEL_COMMIT_HASH}" || exit
 
 #### Create patch file with custom drivers
 echo >&2 "===]> Info: Creating patch file... "
