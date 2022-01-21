@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: 'Checkout repo'
         uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
           shellcheck ./*.sh
   build:
     needs: [lint]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: 'Checkout Repo'
         uses: actions/checkout@v2
