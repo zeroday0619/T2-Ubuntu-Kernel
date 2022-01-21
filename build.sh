@@ -4,9 +4,9 @@ set -eu -o pipefail
 
 KERNEL_REL=5.15.0
 UBUNTU_REL=17.17
-KERNEL_COMMIT_HASH=fcb2795cf1b1d29c267aec8db7a6f829eeb7e754
-#KERNEL_BRANCH="Ubuntu-${KERNEL_REL}-${UBUNTU_REL}"
-KERNEL_BRANCH=master-next
+#KERNEL_COMMIT_HASH=fcb2795cf1b1d29c267aec8db7a6f829eeb7e754
+KERNEL_BRANCH="Ubuntu-${KERNEL_REL}-${UBUNTU_REL}"
+#KERNEL_BRANCH=master-next
 PKGREL=1
 KERNEL_VERSION="${KERNEL_REL}-${UBUNTU_REL}-generic"
 KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/jammy
@@ -42,8 +42,8 @@ apt-get install -y build-essential fakeroot libncurses-dev bison flex libssl-dev
 ### get Kernel
 git clone --depth 1 --single-branch --branch "${KERNEL_BRANCH}" \
   "${KERNEL_REPOSITORY}" "${KERNEL_PATH}"
-cd "${KERNEL_PATH}" 
-git checkout "${KERNEL_COMMIT_HASH}" || exit
+cd "${KERNEL_PATH}" || exit
+#git checkout "${KERNEL_COMMIT_HASH}" || exit
 
 #### Create patch file with custom drivers
 echo >&2 "===]> Info: Creating patch file... "
