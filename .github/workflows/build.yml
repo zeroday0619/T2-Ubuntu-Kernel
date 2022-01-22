@@ -29,7 +29,7 @@ jobs:
       - name: Free up disk space for the CI
         run: |
           df -h
-          echo "Cleaning up"
+          echo "==> Cleaning up disk space for the CI..."
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
@@ -67,8 +67,11 @@ jobs:
             /tmp/artifacts/Packages.gz
             /tmp/artifacts/sha256
             /tmp/artifacts/*.deb
+            /tmp/artifacts/kernel_config*
           tag_name: v${{ steps.build.outputs.tag }}
-          body: linux-headers must be installed before linux-image.
+          body: |
+            linux-headers must be installed first.
+            Installing linux-headers, linux-image and linux-modules is compulsory.
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
