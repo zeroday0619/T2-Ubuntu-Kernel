@@ -3,13 +3,13 @@
 set -eu -o pipefail
 
 KERNEL_REL=5.15.0
-UBUNTU_REL=17.17
-#KERNEL_COMMIT_HASH=fcb2795cf1b1d29c267aec8db7a6f829eeb7e754
+UBUNTU_REL=18.18
 KERNEL_BRANCH="Ubuntu-${KERNEL_REL}-${UBUNTU_REL}"
-#KERNEL_BRANCH=master-next
 PKGREL=1
 KERNEL_VERSION="${KERNEL_REL}-${UBUNTU_REL}-generic"
 KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/jammy
+APPLE_BCE_REPOSITORY=https://github.com/t2linux/apple-bce-drv.git
+APPLE_IBRIDGE_REPOSITORY=https://github.com/Redecorating/apple-ib-drv.git
 REPO_PATH=$(pwd)
 WORKING_PATH=/home/work
 KERNEL_PATH="${WORKING_PATH}/linux-kernel"
@@ -42,8 +42,9 @@ apt-get install -y build-essential fakeroot libncurses-dev bison flex libssl-dev
 ### get Kernel
 git clone --depth 1 --single-branch --branch "${KERNEL_BRANCH}" \
   "${KERNEL_REPOSITORY}" "${KERNEL_PATH}"
+git clone --depth 1 "${APPLE_BCE_REPOSITORY}" "${KERNEL_PATH}/drivers/staging/apple-bce"
+git clone --depth 1 "${APPLE_IBRIDGE_REPOSITORY}" "${KERNEL_PATH}/drivers/staging/apple-ibridge"
 cd "${KERNEL_PATH}" || exit
-#git checkout "${KERNEL_COMMIT_HASH}" || exit
 
 #### Create patch file with custom drivers
 echo >&2 "===]> Info: Creating patch file... "
@@ -76,7 +77,6 @@ cd "${KERNEL_PATH}"
 sed -i "s/${KERNEL_REL}-${UBUNTU_REL}/${KERNEL_REL}-${UBUNTU_REL}+t2/g" debian.master/changelog
 LANG=C fakeroot debian/rules clean
 LANG=C fakeroot debian/rules binary-headers binary-generic binary-perarch
-#make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION="-$(get_local_version)-hwe-t2-big-sur" KDEB_PKGVERSION="$(make kernelversion)-$(get_local_version)-hwe-$(get_next_version)"
 
 #### Copy artifacts to shared volume
 echo >&2 "===]> Info: Copying debs and calculating SHA256 ... "
