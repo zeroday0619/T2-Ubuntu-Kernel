@@ -71,7 +71,7 @@ jobs:
           tag_name: v${{ steps.build.outputs.tag }}
           body: |
             linux-headers must be installed first.
-            Installing linux-headers, linux-image and linux-modules is compulsory.
+            Installing linux-headers, linux-image and linux-modules is required.
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
