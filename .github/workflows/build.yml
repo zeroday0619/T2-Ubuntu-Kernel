@@ -27,19 +27,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Free up disk space for the CI
-        run: |
-          echo "==> Available space before cleanup"
-          echo
-          df -h
-          echo
-          echo "==> Cleaning up disk space for the CI..."
-          echo
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
-          echo "==> Available space after cleanup"
-          echo
-          df -h
+        uses: AdityaGarg8/remove-unwanted-software@v1
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
 
       - name: 'Checkout Repo'
         uses: actions/checkout@v2
