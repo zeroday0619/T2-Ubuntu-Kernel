@@ -11,7 +11,7 @@ KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+g
 APPLE_BCE_REPOSITORY=https://github.com/t2linux/apple-bce-drv.git
 APPLE_IBRIDGE_REPOSITORY=https://github.com/Redecorating/apple-ib-drv.git
 REPO_PATH=$(pwd)
-WORKING_PATH=/home/work
+WORKING_PATH=/root/work
 KERNEL_PATH="${WORKING_PATH}/linux-kernel"
 
 ### Debug commands
