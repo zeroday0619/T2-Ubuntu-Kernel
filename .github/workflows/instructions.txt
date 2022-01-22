@@ -1,0 +1,5 @@
+Download all the debs. Put them in a folder (say Downloads). Then run (assuming you have put them in Downloads, edit the path for another folder) :-
+
+```plain
+sudo apt install $HOME/Downloads/*REL*
+```
