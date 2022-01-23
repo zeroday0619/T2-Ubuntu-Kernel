@@ -1,5 +1,7 @@
-Download all the debs. Put them in a folder (say Downloads). Then run (assuming you have put them in Downloads, edit the path for another folder) :-
+Download the debs. Put them in a folder (say Downloads). Then run (assuming you have put them in Downloads, edit the path for another folder) :-
 
 ```plain
 sudo apt install $HOME/Downloads/*REL*
 ```
+
+Note:- The **linux-buildinfo**, **linux-cloud-tools** and **linux-tools** debs are optional. You may not download them if they aren't required by you. Rest debs are compulsory.
