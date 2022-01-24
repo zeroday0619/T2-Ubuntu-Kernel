@@ -3,7 +3,8 @@ name: Build Kernel Package
 
 # yamllint disable-line rule:truthy
 on:
-  [push, pull_request]
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   lint:
