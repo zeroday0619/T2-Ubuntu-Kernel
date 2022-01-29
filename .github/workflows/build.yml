@@ -70,6 +70,6 @@ jobs:
             /tmp/artifacts/kernel_config*
           tag_name: v${{ steps.build.outputs.tag }}
           body_path: ${{ github.workspace }}/.github/workflows/instructions.txt
-          draft: true
+          draft: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
