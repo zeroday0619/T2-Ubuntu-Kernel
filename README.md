@@ -2,13 +2,13 @@
 
 Ubuntu/Mint/Debian kernel with Apple T2 patches built-in. This repo will try to keep up with kernel new releases.
 
-![Build Kernel Package](https://github.com/AdityaGarg8/T2-Ubuntu-Kernel/actions/workflows/build.yml/badge.svg?branch=LTS)
+![Build Kernel Package](https://github.com/t2linux/T2-Ubuntu-Kernel/actions/workflows/build.yml/badge.svg?branch=LTS)
 
 This project is closely inspired by mikeeq/mbp-fedora-kernel and marcosfad/mbp-ubuntu-kernel. Thank you @mikeeq and @marcosfad for the scripts and setup.
 
 Special thanks to @Redecorating for the CI.
 
-**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/AdityaGarg8/T2-Ubuntu-Kernel#credits).**
+**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/t2linux/T2-Ubuntu-Kernel#credits).**
 
 ## Pre installation steps
 
@@ -29,7 +29,7 @@ If you want to install an older kernel (i.e. older than 5.16.2 or 5.15.16 (LTS))
 
 ### The easy way
 
-Download the .deb packages of **linux-headers** and **linux-image** of the kernel you wish to install from the [releases](https://github.com/AdityaGarg8/T2-Ubuntu-Kernel/releases) section.
+Download the .deb packages of **linux-headers** and **linux-image** of the kernel you wish to install from the [releases](https://github.com/t2linux/T2-Ubuntu-Kernel/releases) section.
 
 Install **linux-headers** first and then **linux-image** using `apt` and restart your Mac. In case you do not know how to do so, follow the instructions given below. Else you are good to go.
 
@@ -43,17 +43,10 @@ Restart your Mac.
 
 Clone the repo using
 ```bash
-git clone https://github.com/AdityaGarg8/T2-Ubuntu-Kernel
+git clone -b LTS https://github.com/t2linux/T2-Ubuntu-Kernel
 ```
-Open [jamlam's repo] in your browser.
 
-Check out the kernel version it is offering right now.
-
-Now edit **build.sh** file in **T2-Ubuntu-Kernel** folder of your home directory. Replace the kernel version given in `KERNEL_VERSION` by the one on jamlam's repo.
-
-Now edit **patch_driver.sh** file in the same folder. Replace the commit hash in `APPLE_SMC_DRIVER_COMMIT_HASH` with the latest one in jamlam's repo. It can be found by click on the shortened hash or time elapsed since last update on the right of "jamlam".
-
-Now open a terminal window and run
+Open a terminal window and run
 
 ```bash
 cd T2-Ubuntu-Kernel
@@ -100,5 +93,3 @@ You may then delete the `/root/work` directory using `sudo rm -r /root/work` to 
 - @jamlam - thanks for providing the Correlium wifi patch
 - @ppaulweber - thanks for keyboard and Macbook Air patches
 - @mikeeq - thanks for the fedora kernel project and compilation scripts
-
-[jamlam's repo]: https://github.com/jamlam/mbp-16.1-linux-wifi
