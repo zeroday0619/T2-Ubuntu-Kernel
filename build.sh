@@ -5,7 +5,7 @@ set -eu -o pipefail
 KERNEL_REL=5.15.0
 UBUNTU_REL=19.19
 KERNEL_BRANCH="Ubuntu-${KERNEL_REL}-${UBUNTU_REL}"
-PKGREL=1
+PKGREL=2
 KERNEL_VERSION="${KERNEL_REL}-${UBUNTU_REL}-generic"
 KERNEL_REPOSITORY=git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/jammy
 APPLE_BCE_REPOSITORY=https://github.com/t2linux/apple-bce-drv.git
