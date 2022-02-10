@@ -46,11 +46,30 @@ seem to use a non-standard EFI hardware
 Cc: stable@vger.kernel.org
 Signed-off-by: Aditya Garg <gargaditya08@live.com>
 ---
- security/integrity/platform_certs/load_uefi.c | 122 ++++++++++++++++++
- 1 file changed, 122 insertions(+)
+v2 :- Reduce code size of the table.
+V3 :- Close the brackets which were left open by mistake.
+ .../platform_certs/keyring_handler.h          |  8 ++++
+ security/integrity/platform_certs/load_uefi.c | 48 +++++++++++++++++++
+ 2 files changed, 56 insertions(+)
 
+diff --git a/security/integrity/platform_certs/keyring_handler.h b/security/integrity/platform_certs/keyring_handler.h
+index 2462bfa08..cd06bd607 100644
+--- a/security/integrity/platform_certs/keyring_handler.h
++++ b/security/integrity/platform_certs/keyring_handler.h
+@@ -30,3 +30,11 @@ efi_element_handler_t get_handler_for_db(const efi_guid_t *sig_type);
+ efi_element_handler_t get_handler_for_dbx(const efi_guid_t *sig_type);
+ 
+ #endif
++
++#ifndef UEFI_QUIRK_SKIP_CERT
++#define UEFI_QUIRK_SKIP_CERT(vendor, product) \
++		 .matches = { \
++			DMI_MATCH(DMI_BOARD_VENDOR, vendor), \
++			DMI_MATCH(DMI_PRODUCT_NAME, product), \
++		},
++#endif
 diff --git a/security/integrity/platform_certs/load_uefi.c b/security/integrity/platform_certs/load_uefi.c
-index 08b6d12f9..668b2a713 100644
+index 08b6d12f9..f246c8732 100644
 --- a/security/integrity/platform_certs/load_uefi.c
 +++ b/security/integrity/platform_certs/load_uefi.c
 @@ -3,6 +3,7 @@
@@ -61,7 +80,7 @@ index 08b6d12f9..668b2a713 100644
  #include <linux/err.h>
  #include <linux/efi.h>
  #include <linux/slab.h>
-@@ -12,6 +13,106 @@
+@@ -12,6 +13,32 @@
  #include "../integrity.h"
  #include "keyring_handler.h"
  
@@ -71,104 +90,30 @@ index 08b6d12f9..668b2a713 100644
 + * causes a crash, so we simply return 0 for them in each function.
 + */
 +
-+static const struct dmi_system_id uefi_apple_ignore[] = {
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,2"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,4"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,2"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,3"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookAir8,1"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookAir8,2"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookAir9,1"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacMini8,1"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "MacPro7,1"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,1"),
-+		},
-+	},
-+	{
-+		 .matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "iMac20,2"),
-+		},
-+	},
++static const struct dmi_system_id uefi_skip_cert[] = {
++
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookPro15,1") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookPro15,2") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookPro15,3") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookPro15,4") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookPro16,1") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookPro16,2") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookPro16,3") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookPro16,4") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookAir8,1") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookAir8,2") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacBookAir9,1") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacMini8,1") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "MacPro7,1") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "iMac20,1") },
++	{ UEFI_QUIRK_SKIP_CERT("Apple Inc.", "iMac20,2") },
 +	{ }
 +};
 +
  /*
   * Look to see if a UEFI variable called MokIgnoreDB exists and return true if
   * it does.
-@@ -21,12 +122,18 @@
+@@ -21,12 +48,18 @@
   * is set, we should ignore the db variable also and the true return indicates
   * this.
   */
@@ -181,43 +126,43 @@ index 08b6d12f9..668b2a713 100644
  	efi_guid_t guid = EFI_SHIM_LOCK_GUID;
 +	const struct dmi_system_id *dmi_id;
 +
-+	dmi_id = dmi_first_match(uefi_apple_ignore);
++	dmi_id = dmi_first_match(uefi_skip_cert);
 +	if (dmi_id)
 +		return 0;
  
  	status = efi.get_variable(L"MokIgnoreDB", &guid, NULL, &size, &db);
  	return status == EFI_SUCCESS;
-@@ -41,6 +148,11 @@ static __init void *get_cert_list(efi_char16_t *name, efi_guid_t *guid,
+@@ -41,6 +74,11 @@ static __init void *get_cert_list(efi_char16_t *name, efi_guid_t *guid,
  	unsigned long lsize = 4;
  	unsigned long tmpdb[4];
  	void *db;
 +	const struct dmi_system_id *dmi_id;
 +
-+	dmi_id = dmi_first_match(uefi_apple_ignore);
++	dmi_id = dmi_first_match(uefi_skip_cert);
 +	if (dmi_id)
 +		return 0;
  
  	*status = efi.get_variable(name, guid, NULL, &lsize, &tmpdb);
  	if (*status == EFI_NOT_FOUND)
-@@ -85,6 +197,11 @@ static int __init load_moklist_certs(void)
+@@ -85,6 +123,11 @@ static int __init load_moklist_certs(void)
  	unsigned long moksize;
  	efi_status_t status;
  	int rc;
 +	const struct dmi_system_id *dmi_id;
 +
-+	dmi_id = dmi_first_match(uefi_apple_ignore);
++	dmi_id = dmi_first_match(uefi_skip_cert);
 +	if (dmi_id)
 +		return 0;
  
  	/* First try to load certs from the EFI MOKvar config table.
  	 * It's not an error if the MOKvar config table doesn't exist
-@@ -138,6 +255,11 @@ static int __init load_uefi_certs(void)
+@@ -138,6 +181,11 @@ static int __init load_uefi_certs(void)
  	unsigned long dbsize = 0, dbxsize = 0, mokxsize = 0;
  	efi_status_t status;
  	int rc = 0;
 +	const struct dmi_system_id *dmi_id;
 +
-+	dmi_id = dmi_first_match(uefi_apple_ignore);
++	dmi_id = dmi_first_match(uefi_skip_cert);
 +	if (dmi_id)
 +		return 0;
  
