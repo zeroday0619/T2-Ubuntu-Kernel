@@ -2,8 +2,8 @@
 
 set -eu -o pipefail
 
-KERNEL_VERSION=5.16.8
-PKGREL=2
+KERNEL_VERSION=5.16.9
+PKGREL=1
 #KERNEL_REPOSITORY=git://kernel.ubuntu.com/virgin/linux-stable.git
 KERNEL_REPOSITORY=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 APPLE_BCE_REPOSITORY=https://github.com/t2linux/apple-bce-drv.git
