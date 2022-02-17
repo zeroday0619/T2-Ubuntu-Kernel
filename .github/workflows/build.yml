@@ -29,7 +29,7 @@ jobs:
       - name: Free up disk space for the CI
         uses: AdityaGarg8/remove-unwanted-software@v1
         with:
-          #remove-android: 'true'
+          remove-android: 'true'
           remove-dotnet: 'true'
           remove-haskell: 'true'
 
