@@ -9,7 +9,7 @@ echo "Abort!"
 exit 1
 fi
 
-KERNEL_VERSION=5.15.25
+KERNEL_VERSION=5.15.25.a
 PKGREL=1
 
 if [[ $USE_T2LINUX_REPO = true ]]
@@ -58,7 +58,7 @@ apt-get install -y build-essential fakeroot libncurses-dev bison flex libssl-dev
 ### get Kernel and Drivers
 if [[ $USE_T2LINUX_REPO = true ]]
 then
-git clone --depth 1 --single-branch --branch "t2-v${KERNEL_VERSION}" \
+git clone --depth 1 --single-branch --branch "t2-${KERNEL_VERSION}" \
   "${KERNEL_REPOSITORY}" "${KERNEL_PATH}"
 else
 git clone --depth 1 --single-branch --branch "v${KERNEL_VERSION}" \
