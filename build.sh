@@ -2,7 +2,7 @@
 
 set -eu -o pipefail
 
-USE_T2LINUX_REPO=false
+USE_T2LINUX_REPO=true
 if [[ ($USE_T2LINUX_REPO != true) && ($USE_T2LINUX_REPO != false) ]]
 then
 echo "Abort!"
