@@ -25,7 +25,7 @@ rm 9001*
 rm 2001*
 rm 80*
 rm intel-lpss.patch
-cp "${BUILD_PATH}/linux-mbp-arch-wifi/80*" "${BUILD_PATH}/linux-mbp-arch"
+cp "${BUILD_PATH}/linux-mbp-arch-wifi"/80* "${BUILD_PATH}/linux-mbp-arch"
 
 while IFS= read -r file; do
   echo "==> Adding ${file}"
