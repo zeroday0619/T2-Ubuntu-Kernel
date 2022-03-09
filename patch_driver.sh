@@ -5,9 +5,9 @@ set -eu -o pipefail
 BUILD_PATH=/tmp/build-kernel
 
 # Patches
-APPLE_SMC_DRIVER_GIT_URL=https://github.com/Redecorating/mbp-16.1-linux-wifi.git
+APPLE_SMC_DRIVER_GIT_URL=https://github.com/AdityaGarg8/linux-t2-patches.git
 APPLE_SMC_DRIVER_BRANCH_NAME=main
-APPLE_SMC_DRIVER_COMMIT_HASH=c1dc3beb31f1c5b05f0f2319472d4323b19dc3a7
+APPLE_SMC_DRIVER_COMMIT_HASH=964631e878b717d2d271a2388e0306af9ad7822d
 
 rm -rf "${BUILD_PATH}"
 mkdir -p "${BUILD_PATH}"
@@ -18,7 +18,6 @@ git clone --single-branch --branch ${APPLE_SMC_DRIVER_BRANCH_NAME} ${APPLE_SMC_D
   "${BUILD_PATH}/linux-mbp-arch"
 cd "${BUILD_PATH}/linux-mbp-arch" || exit
 git checkout ${APPLE_SMC_DRIVER_COMMIT_HASH}
-rm 2001*
 rm 100*
 
 while IFS= read -r file; do
