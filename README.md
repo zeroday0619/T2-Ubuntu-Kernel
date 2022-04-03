@@ -8,7 +8,7 @@ This project is closely inspired by mikeeq/mbp-fedora-kernel and marcosfad/mbp-u
 
 Special thanks to @Redecorating for the CI.
 
-**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/t2linux/T2-Ubuntu-Kernel#credits).**
+**If this repo helped you in any way, consider inviting a coffee to the people in the [credits](https://github.com/t2linux/T2-Ubuntu-Kernel#credits) (links given [here](https://wiki.t2linux.org/contribute/)).**
 
 ## Pre installation steps
 
