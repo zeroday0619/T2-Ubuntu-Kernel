@@ -7,7 +7,7 @@ BUILD_PATH=/tmp/build-kernel
 # Patches
 APPLE_SMC_DRIVER_GIT_URL=https://github.com/AdityaGarg8/linux-t2-patches.git
 APPLE_SMC_DRIVER_BRANCH_NAME=main
-APPLE_SMC_DRIVER_COMMIT_HASH=49ca329a8afd35bc05a1f531bf89fafc9557004d
+APPLE_SMC_DRIVER_COMMIT_HASH=4c7339c8a01f02a826b46b80ffa8455935c528aa
 
 rm -rf "${BUILD_PATH}"
 mkdir -p "${BUILD_PATH}"
