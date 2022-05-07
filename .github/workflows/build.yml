@@ -46,18 +46,7 @@ jobs:
           sed -i "s/REL/${KREL}-${UREL}/g" \
           ${{ github.workspace }}/.github/workflows/instructions.txt
 
-          DOCKER_IMAGE=ubuntu:22.04
-          docker pull ${DOCKER_IMAGE}
-          docker run \
-          -t \
-          -v "$(pwd)":/repo \
-          ${DOCKER_IMAGE} \
-          /bin/bash -c 'cd /repo && \
-          mkdir /tmp/artifacts && \
-          ./build.sh && mkdir /repo/debs && \
-          cp -r /tmp/artifacts/* /repo/debs'
-
-          cp -r "$(pwd)"/debs/* /tmp/artifacts
+          sudo ./build.sh
           echo Built $KREL-$UREL-generic-$PREL
           echo "::set-output name=tag::${KREL}-${UREL}-generic-${PREL}"
           cd /tmp/artifacts
