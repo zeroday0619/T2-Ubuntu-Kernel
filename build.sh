@@ -50,7 +50,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y build-essential fakeroot libncurses-dev bison flex libssl-dev libelf-dev \
   openssl dkms libudev-dev libpci-dev libiberty-dev autoconf wget xz-utils git \
-  libcap-dev bc rsync cpio dh-modaliases debhelper kernel-wedge curl gawk dwarves
+  libcap-dev bc rsync cpio dh-modaliases debhelper kernel-wedge curl gawk dwarves zstd
 
 ### get Kernel and Drivers
 if [[ $USE_T2LINUX_REPO = true ]]
