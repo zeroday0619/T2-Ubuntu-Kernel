@@ -25,6 +25,8 @@ cd "${BUILD_PATH}" || exit
 ### Get the wifi patches seperately
 git clone --single-branch --branch main https://github.com/AdityaGarg8/linux-t2-patches \
   "${BUILD_PATH}/linux-mbp-arch-wifi"
+cd "${BUILD_PATH}/linux-mbp-arch-wifi" || exit
+git checkout 856c7fe3515cae4195b7417ff253c88c84c68196
 ### AppleSMC and BT aunali fixes
 git clone --single-branch --branch ${APPLE_SMC_DRIVER_BRANCH_NAME} ${APPLE_SMC_DRIVER_GIT_URL} \
   "${BUILD_PATH}/linux-mbp-arch"
