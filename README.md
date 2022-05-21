@@ -27,7 +27,25 @@ If you want to install an older kernel (i.e. older than 5.16.2 or 5.15.16 (LTS))
 
 ## INSTALLATION
 
-### The easy way
+### Using the Kernel Upgrade script
+
+Firstly get a copy of the kernel upgrade script by running :-
+
+```bash
+sudo wget https://raw.githubusercontent.com/t2linux/T2-Ubuntu-Kernel/Mainline/update_t2_kernel -P /usr/bin
+sudo chmod 755 /usr/bin/update_t2_kernel
+```
+
+Now, whenever you wish to upgrade your kernel, run :-
+
+```bash
+update_t2_kernel -v
+```
+#### Case of users wanting latest LTS kernels
+
+In case you want to download the latest LTS release, instead of the Mainline ones, then edit the script by running `sudo gedit /usr/bin/update_t2_kernel` and change `use_lts=false` to `use_lts=true` and save the file. Now, running `update_t2_kernel -v` shall upgrade the kernel to the latest LTS release.
+
+### Download package manually
 
 Download the .deb packages of **linux-headers** and **linux-image** of the kernel you wish to install from the [releases](https://github.com/t2linux/T2-Ubuntu-Kernel/releases) section.
 
