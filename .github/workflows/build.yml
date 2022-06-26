@@ -9,6 +9,12 @@ jobs:
   lint:
     runs-on: ubuntu-22.04
     steps:
+      - name: Free up disk space for the CI
+        uses: AdityaGarg8/remove-unwanted-software@v1
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
       - name: 'Checkout repo'
         uses: actions/checkout@v2
       - name: 'Set up Python 3.9'
