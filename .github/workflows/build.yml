@@ -24,7 +24,7 @@ jobs:
           shellcheck ./*.sh
   build:
     needs: [lint]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repo'
         uses: actions/checkout@v2
@@ -38,7 +38,20 @@ jobs:
           #REL=$( git tag |grep -F $VERSION|sort -r|head -n1|tr -d v)
           echo Building $VERSION-$REL
           echo "::set-output name=tag::${VERSION}-${REL}"
-          sudo ./build.sh
+          #sudo ./build.sh
+
+          DOCKER_IMAGE=ubuntu:22.04
+          docker pull ${DOCKER_IMAGE}
+          docker run \
+          -t \
+          -v "$(pwd)":/repo \
+          ${DOCKER_IMAGE} \
+          /bin/bash -c 'cd /repo && \
+          mkdir /tmp/artifacts && \
+          ./build.sh && mkdir /repo/debs && \
+          cp -r /tmp/artifacts/* /repo/debs'
+          cp -r "$(pwd)"/debs/* /tmp/artifacts
+
           cd /tmp/artifacts
           ls -l
           dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
