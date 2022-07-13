@@ -9,7 +9,7 @@ echo "Abort!"
 exit 1
 fi
 
-KERNEL_VERSION=5.15.53
+KERNEL_VERSION=5.15.54
 PKGREL=1
 
 if [[ $USE_T2LINUX_REPO = true ]]
