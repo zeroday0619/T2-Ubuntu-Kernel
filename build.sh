@@ -9,8 +9,8 @@ echo "Abort!"
 exit 1
 fi
 
-KERNEL_VERSION=5.15.58
-PKGREL=2
+KERNEL_VERSION=5.15.61
+PKGREL=1
 
 if [[ $USE_T2LINUX_REPO = true ]]
 then
@@ -110,6 +110,7 @@ sed -i 's/CONFIG_MESSAGE_LOGLEVEL_DEFAULT=.*/CONFIG_MESSAGE_LOGLEVEL_DEFAULT=4/g
 # Copy the modified config
 cp "${WORKING_PATH}/templates/default-config" "${KERNEL_PATH}/.config"
 make olddefconfig
+./scripts/config --module CONFIG_BT_HCIBCM4377
 
 # Get rid of the dirty tag
 echo "" >"${KERNEL_PATH}"/.scmversion
