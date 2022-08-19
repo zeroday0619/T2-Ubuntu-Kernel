@@ -12,7 +12,7 @@ Special thanks to @Redecorating for the CI.
 
 ## Pre installation steps
 
-Releases starting from 5.16.2 and 5.15.16 (LTS) or have apple-bce and apple-ibridge drivers built-into the kernel. Thus, you may remove the dkms versions of them by running :-
+Releases starting from 5.16.2 and 5.15.16 (LTS) have apple-bce and apple-ibridge drivers built-into the kernel. Thus, you may remove the dkms versions of them by running :-
 
 ```
 sudo rm -r /usr/src/apple-bce*
@@ -99,6 +99,7 @@ You may then delete the `/root/work` directory using `sudo rm -r /root/work` to 
 ## Credits
 
 - @Redecorating - thanks for editing the scripts and CI for Ubuntu
+- @fishpm-anu - thanks for the kernel upgrade script
 - @marcosfad - thanks for the original script for Ubuntu
 - @MCMrARM - thanks for all RE work
 - @ozbenh - thanks for submitting NVME patch
