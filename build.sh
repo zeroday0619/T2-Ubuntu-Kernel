@@ -116,7 +116,7 @@ make olddefconfig
 echo "" >"${KERNEL_PATH}"/.scmversion
 
 # Build Deb packages
-make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION=-t2 KDEB_PKGVERSION="$(make kernelversion)-$(get_next_version)" CC=clang LD=ld.lld AR=llvm-ar NM=llvm-nm STRIP=llvm-strip OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump READELF=llvm-readelf HOSTCC=clang HOSTCXX=clang++ HOSTAR=llvm-ar HOSTLD=ld.lld LTO_CLANG_FULL=1
+make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION=-t2 KDEB_PKGVERSION="$(make kernelversion)-$(get_next_version)" CC=clang LD=ld.lld AR=llvm-ar NM=llvm-nm STRIP=llvm-strip OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump READELF=llvm-readelf HOSTCC=clang HOSTCXX=clang++ HOSTAR=llvm-ar HOSTLD=ld.lld
 
 #### Copy artifacts to shared volume
 echo >&2 "===]> Info: Copying debs and calculating SHA256 ... "
