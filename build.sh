@@ -109,14 +109,15 @@ sed -i 's/CONFIG_MESSAGE_LOGLEVEL_DEFAULT=.*/CONFIG_MESSAGE_LOGLEVEL_DEFAULT=4/g
 
 # Copy the modified config
 cp "${WORKING_PATH}/templates/default-config" "${KERNEL_PATH}/.config"
-make olddefconfig
+make LLVM=1 LLVM_IAS=1 olddefconfig
+./scripts/config -e LTO_CLANG_THIN
 ./scripts/config --module CONFIG_BT_HCIBCM4377
 
 # Get rid of the dirty tag
 echo "" >"${KERNEL_PATH}"/.scmversion
 
 # Build Deb packages
-make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION=-t2 KDEB_PKGVERSION="$(make kernelversion)-$(get_next_version)" CC=clang LD=ld.lld AR=llvm-ar NM=llvm-nm STRIP=llvm-strip OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump READELF=llvm-readelf HOSTCC=clang HOSTCXX=clang++ HOSTAR=llvm-ar HOSTLD=ld.lld
+make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION=-t2 KDEB_PKGVERSION="$(make kernelversion)-$(get_next_version)" LLVM=1 LLVM_IAS=1
 
 #### Copy artifacts to shared volume
 echo >&2 "===]> Info: Copying debs and calculating SHA256 ... "
