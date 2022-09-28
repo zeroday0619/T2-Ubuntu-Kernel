@@ -9,8 +9,8 @@ echo "Abort!"
 exit 1
 fi
 
-KERNEL_VERSION=5.19.11
-PKGREL=2
+KERNEL_VERSION=5.16.9
+PKGREL=1
 
 if [[ $USE_T2LINUX_REPO = true ]]
 then
@@ -109,15 +109,14 @@ sed -i 's/CONFIG_MESSAGE_LOGLEVEL_DEFAULT=.*/CONFIG_MESSAGE_LOGLEVEL_DEFAULT=4/g
 
 # Copy the modified config
 cp "${WORKING_PATH}/templates/default-config" "${KERNEL_PATH}/.config"
-make LLVM=1 LLVM_IAS=1 olddefconfig
-./scripts/config -e LTO_CLANG_THIN
+make olddefconfig
 ./scripts/config --module CONFIG_BT_HCIBCM4377
 
 # Get rid of the dirty tag
 echo "" >"${KERNEL_PATH}"/.scmversion
 
 # Build Deb packages
-make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION=-t2 KDEB_PKGVERSION="$(make kernelversion)-$(get_next_version)" LLVM=1 LLVM_IAS=1
+make -j "$(getconf _NPROCESSORS_ONLN)" deb-pkg LOCALVERSION=-t2 KDEB_PKGVERSION="$(make kernelversion)-$(get_next_version)"
 
 #### Copy artifacts to shared volume
 echo >&2 "===]> Info: Copying debs and calculating SHA256 ... "
